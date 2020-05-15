@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-<<<<<<< HEAD
 	_userGroupId: {
 		type: mongoose.Types.ObjectId,
 		required: true,
@@ -22,10 +21,9 @@ const userSchema = new mongoose.Schema({
 		required: true,
 	},
 	Password: {
-
 		type: String,
 		required: true,
-	}
+	},
 });
 
 const user = mongoose.model('user', userSchema);

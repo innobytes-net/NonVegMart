@@ -63,8 +63,6 @@ app.get('/product-category', (req, res) => {
 		.catch((error) => console.log(error));
 });
 
-
-
 app.post('/product-category', (req, res) => {
 	new productCategory({
 		name: req.body.name,
@@ -164,57 +162,97 @@ app.delete(
 );
 
 // Users
-app.get('/users' ,(req,res)=>{
+app.get('/users', (req, res) => {
 	userSchema
-	.find({})
-	.then((userSchema) => res.send(userSchema))
-	.catch((error) => console.log(error));
+		.find({})
+		.then((userSchema) => res.send(userSchema))
+		.catch((error) => console.log(error));
 });
 
 app.get('/users/:user_id', (req, res) => {
 	userSchema
-		.find({ _id: req.params.user_id})
+		.find({ _id: req.params.user_id })
 		.then((userSchema) => res.send(userSchema))
 		.catch((error) => console.log(error));
 });
 
 app.post('/users', (req, res) => {
 	new userSchema({
-		FirstName:req.body.FirstName,
-		LastName:req.body.LastName,
-		Email:req.body.Email,
-		Password:req.body.Password,
+		FirstName: req.body.FirstName,
+		LastName: req.body.LastName,
+		Email: req.body.Email,
+		Password: req.body.Password,
 	})
 		.save()
 		.then((userSchema) => res.send(userSchema))
 		.catch((error) => console.log(error));
 });
 
-app.patch(
-	'/users/:user_id',
-	(req, res) => {
-		userSchema
-			.findOneAndUpdate(
-				{
-					_id: req.params.user_id,
-				},
-				{ $set: req.body }
-			)
-			.then((userSchema) => res.send(userSchema))
-			.catch((error) => console.log(error));
-	}
-);
-app.delete(
-	'/users/:user_id',
-	(req, res) => {
-		product
-			.findOneAndDelete({
+app.patch('/users/:user_id', (req, res) => {
+	userSchema
+		.findOneAndUpdate(
+			{
 				_id: req.params.user_id,
-			})
-			.then((userSchema) => res.send(userSchema))
-			.catch((error) => console.log(error));
-	}
-);
+			},
+			{ $set: req.body }
+		)
+		.then((userSchema) => res.send(userSchema))
+		.catch((error) => console.log(error));
+});
+app.delete('/users/:user_id', (req, res) => {
+	product
+		.findOneAndDelete({
+			_id: req.params.user_id,
+		})
+		.then((userSchema) => res.send(userSchema))
+		.catch((error) => console.log(error));
+});
 
+//User group
+
+app.get('/user-group', (req, res) => {
+	usergroup
+		.find({})
+		.then((usergroup) => res.send(usergroup))
+		.catch((error) => console.log(error));
+});
+
+app.post('/user-group', (req, res) => {
+	new usergroup({
+		name: req.body.name,
+		description: req.body.description,
+	})
+		.save()
+		.then((usergroup) => res.send(usergroup))
+		.catch((error) => console.log(error));
+});
+
+app.get('/user-group/:_userGroupId', (req, res) => {
+	usergroup
+		.find({ _userGroupId: req.params.userGroupId })
+		.then((usergroup) => res.send(usergroup))
+		.catch((error) => console.log(error));
+});
+
+app.patch('/user-group/:_userGroupId', (req, res) => {
+	usergroup
+		.findOneAndUpdate(
+			{
+				_userGroupId: req.params.userGroupId,
+			},
+			{ $set: req.body }
+		)
+		.then((usergroup) => res.send(usergroup))
+		.catch((error) => console.log(error));
+});
+
+app.delete('/user-group/:_userGroupId', (req, res) => {
+	usergroup
+		.findOneAndDelete({
+			_userGroupId: req.params.userGroupId,
+		})
+		.then((usergroup) => res.send(usergroup))
+		.catch((error) => console.log(error));
+});
 
 app.listen(2000, () => console.log('Server connected on port 2000'));
