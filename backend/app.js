@@ -63,6 +63,8 @@ app.get('/product-category', (req, res) => {
 		.catch((error) => console.log(error));
 });
 
+
+
 app.post('/product-category', (req, res) => {
 	new productCategory({
 		name: req.body.name,
@@ -109,17 +111,6 @@ app.get('/product-category/:product_category_id/product', (req, res) => {
 		.then((product) => res.send(product))
 		.catch((error) => console.log(error));
 });
-app.post('/product-category/:product_category_id/product', (req, res) => {
-	new product({
-		_Product_Category_id: req.params.product_category_id,
-		name: req.body.name,
-		description: req.body.description,
-		cost: req.body.cost,
-	})
-		.save()
-		.then((product) => res.send(product))
-		.catch((error) => console.log(error));
-});
 app.get(
 	'/product-category/:product_category_id/product/:product_id',
 	(req, res) => {
@@ -132,6 +123,18 @@ app.get(
 			.catch((error) => console.log(error));
 	}
 );
+app.post('/product-category/:product_category_id/product', (req, res) => {
+	new product({
+		_Product_Category_id: req.params.product_category_id,
+		name: req.body.name,
+		description: req.body.description,
+		cost: req.body.cost,
+	})
+		.save()
+		.then((product) => res.send(product))
+		.catch((error) => console.log(error));
+});
+
 app.patch(
 	'/product-category/:product_category_id/product/:product_id',
 	(req, res) => {
@@ -159,5 +162,59 @@ app.delete(
 			.catch((error) => console.log(error));
 	}
 );
+
+// Users
+app.get('/users' ,(req,res)=>{
+	userSchema
+	.find({})
+	.then((userSchema) => res.send(userSchema))
+	.catch((error) => console.log(error));
+});
+
+app.get('/users/:user_id', (req, res) => {
+	userSchema
+		.find({ _id: req.params.user_id})
+		.then((userSchema) => res.send(userSchema))
+		.catch((error) => console.log(error));
+});
+
+app.post('/users', (req, res) => {
+	new userSchema({
+		FirstName:req.body.FirstName,
+		LastName:req.body.LastName,
+		Email:req.body.Email,
+		Password:req.body.Password,
+	})
+		.save()
+		.then((userSchema) => res.send(userSchema))
+		.catch((error) => console.log(error));
+});
+
+app.patch(
+	'/users/:user_id',
+	(req, res) => {
+		userSchema
+			.findOneAndUpdate(
+				{
+					_id: req.params.user_id,
+				},
+				{ $set: req.body }
+			)
+			.then((userSchema) => res.send(userSchema))
+			.catch((error) => console.log(error));
+	}
+);
+app.delete(
+	'/users/:user_id',
+	(req, res) => {
+		product
+			.findOneAndDelete({
+				_id: req.params.user_id,
+			})
+			.then((userSchema) => res.send(userSchema))
+			.catch((error) => console.log(error));
+	}
+);
+
 
 app.listen(2000, () => console.log('Server connected on port 2000'));
