@@ -10,6 +10,8 @@ const productCategory = require('./database/models/Product_Category');
 
 const userSchema = require('./database/models/User_Schemas');
 
+const usergroup = require('./database/models/User_Group');
+
 app.use(express.json());
 
 app.use(function (req, res, next) {
@@ -178,10 +180,11 @@ app.get('/users/:user_id', (req, res) => {
 
 app.post('/users', (req, res) => {
 	new userSchema({
-		FirstName: req.body.FirstName,
-		LastName: req.body.LastName,
-		Email: req.body.Email,
-		Password: req.body.Password,
+		firstName: req.body.firstname,
+		lastName: req.body.lastname,
+		email: req.body.email,
+		password: req.body.password,
+		_userGroupId: req.body.userGroupId,
 	})
 		.save()
 		.then((userSchema) => res.send(userSchema))
@@ -200,7 +203,7 @@ app.patch('/users/:user_id', (req, res) => {
 		.catch((error) => console.log(error));
 });
 app.delete('/users/:user_id', (req, res) => {
-	product
+	userSchema
 		.findOneAndDelete({
 			_id: req.params.user_id,
 		})
@@ -229,7 +232,7 @@ app.post('/user-group', (req, res) => {
 
 app.get('/user-group/:_userGroupId', (req, res) => {
 	usergroup
-		.find({ _userGroupId: req.params.userGroupId })
+		.findOne({ _id: req.params._userGroupId })
 		.then((usergroup) => res.send(usergroup))
 		.catch((error) => console.log(error));
 });

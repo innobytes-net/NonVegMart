@@ -5,29 +5,26 @@ const userSchema = new mongoose.Schema({
 		type: mongoose.Types.ObjectId,
 		required: true,
 	},
-	FirstName: {
+	firstName: {
 		type: String,
 		trim: true,
 		required: true,
 	},
-	LastName: {
+	lastName: {
 		type: String,
 		trim: true,
 		required: true,
 	},
-	Email: {
+	email: {
 		type: String,
 		unique: true,
 		required: true,
 	},
-	Password: {
+	password: {
 		type: String,
 		required: true,
 	},
 });
-
-const user = mongoose.model('user', userSchema);
-module.exports = user;
 
 const user = mongoose.model('user', userSchema);
 module.exports = user;
