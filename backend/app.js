@@ -8,6 +8,8 @@ const product = require('./database/models/product');
 
 const productCategory = require('./database/models/Product_Category');
 
+const userSchema = require('./database/models/User_Schemas');
+
 app.use(express.json());
 
 app.use(function (req, res, next) {
